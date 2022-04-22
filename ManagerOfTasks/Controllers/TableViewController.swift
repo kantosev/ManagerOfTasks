@@ -9,6 +9,8 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
+    private var tasks = Tasks.tasks
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,7 +30,7 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return Tasks.tasks.count
+        return tasks.count
     }
 
     
@@ -38,7 +40,7 @@ class TableViewController: UITableViewController {
         var content = cell.defaultContentConfiguration()
 
         // Configure content.
-        content.text = Tasks.tasks[indexPath.row]
+        content.text = tasks[indexPath.row]
         cell.contentConfiguration = content
 
         return cell
@@ -86,14 +88,21 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "toCreateScreen" {
+            guard let destination = segue.destination as? CreateTaskController else { return }
+            destination.doAfterEdit = { [unowned self] nameOfTask in
+                self.tasks.append(nameOfTask)
+                self.tableView.reloadData()
+                
+            }
+            
+        }
     }
-    */
+    
 
 }
