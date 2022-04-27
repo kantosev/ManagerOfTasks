@@ -96,13 +96,14 @@
                                 <action selector="cancelButtonPressed:" destination="hjl-52-BE6" id="f9H-W5-fpN"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Xhf-gz-7wb">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="Xhf-gz-7wb">
                             <connections>
                                 <action selector="saveButtonPressed:" destination="hjl-52-BE6" id="2uD-jn-kmG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="saveButton" destination="Xhf-gz-7wb" id="THn-H1-uh9"/>
                         <outlet property="textField" destination="keq-eI-CW3" id="Sqr-kn-KYb"/>
                     </connections>
                 </tableViewController>

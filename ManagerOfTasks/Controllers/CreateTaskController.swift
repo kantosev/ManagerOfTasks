@@ -9,13 +9,14 @@ import UIKit
 
 class CreateTaskController: UITableViewController {
 
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     
     var doAfterEdit: ((String) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        addTargetToTextField()
     }
 
     // MARK: - Table view data source
@@ -38,14 +39,6 @@ class CreateTaskController: UITableViewController {
 //        return cell
 //    }
 
-    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-        let nameOfTask = textField.text ?? ""
-        doAfterEdit?(nameOfTask)
-        navigationController?.popViewController(animated: true)
-    }
-    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
-    }
     
    
     
@@ -66,7 +59,7 @@ class CreateTaskController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     */
 
@@ -84,15 +77,26 @@ class CreateTaskController: UITableViewController {
         return true
     }
     */
+// MARK: - SupportFunc
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
+        let nameOfTask = textField.text ?? ""
+        doAfterEdit?(nameOfTask)
+        navigationController?.popViewController(animated: true)
     }
-    */
-
+    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    private func addTargetToTextField() {
+        textField.addTarget(
+            self,
+            action: #selector(firstNameTextFieldDidChanged),
+            for: .editingChanged
+        )
+    }
+    @objc private func firstNameTextFieldDidChanged() {
+        guard let firstName = textField.text else { return }
+        saveButton.isEnabled = !firstName.isEmpty
+    }
 }
