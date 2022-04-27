@@ -9,11 +9,11 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
-    private var tasks = Tasks.tasks
+    private var tasks: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tasks = Tasks.fetchData(key: "tasks")
         // Uncomment the following line to preserve selection between presentations
 //         self.clearsSelectionOnViewWillAppear = false
 
@@ -51,11 +51,12 @@ class TableViewController: UITableViewController {
       
         
     }
-    
+    // удаление задачи
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "Удалить") { _,_,_ in
             self.tasks.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
+            Tasks.saveData(data: self.tasks, key: "tasks")
         }
         let actions = UISwipeActionsConfiguration(actions: [action])
         return actions
@@ -106,6 +107,7 @@ class TableViewController: UITableViewController {
             destination.doAfterEdit = { [unowned self] nameOfTask in
                 self.tasks.append(nameOfTask)
                 self.tableView.reloadData()
+                Tasks.saveData(data: tasks, key: "tasks")
                 
             }
             
