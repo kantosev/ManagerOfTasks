@@ -13,10 +13,11 @@ class CreateTaskController: UITableViewController {
     @IBOutlet weak var textField: UITextField!
     
     var doAfterEdit: ((String) -> Void)?
-    
+    var textInTextField: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         addTargetToTextField()
+        setTextFieldText()
     }
 
     // MARK: - Table view data source
@@ -98,5 +99,8 @@ class CreateTaskController: UITableViewController {
     @objc private func firstNameTextFieldDidChanged() {
         guard let firstName = textField.text else { return }
         saveButton.isEnabled = !firstName.isEmpty
+    }
+    private func setTextFieldText() {
+        textField.text = textInTextField
     }
 }

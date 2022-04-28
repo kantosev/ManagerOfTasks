@@ -53,12 +53,27 @@ class TableViewController: UITableViewController {
     }
     // удаление задачи
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "Удалить") { _,_,_ in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { _,_,_ in
             self.tasks.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
             Tasks.saveData(data: self.tasks, key: "tasks")
         }
-        let actions = UISwipeActionsConfiguration(actions: [action])
+        let changeAction = UIContextualAction(style: .normal, title: "Изменить") { _,_,_ in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let vc = storyboard.instantiateViewController(withIdentifier: "CreateTaskController") as? CreateTaskController else { return }
+            self.navigationController?.pushViewController(vc, animated: true)
+            vc.textInTextField = self.tasks[indexPath.row]
+            vc.doAfterEdit = { [unowned self] nameOfTask in
+                if nameOfTask != vc.textInTextField {
+                    guard let index = self.tasks.firstIndex(of: "\(vc.textInTextField)") else { return }
+                    self.tasks.remove(at: index)
+                    self.tasks.insert(nameOfTask, at: index)
+                    self.tableView.reloadData()
+                    Tasks.saveData(data: tasks, key: "tasks")
+                }
+            }
+        }
+        let actions = UISwipeActionsConfiguration(actions: [deleteAction, changeAction])
         return actions
     }
     
