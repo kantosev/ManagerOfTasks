@@ -8,8 +8,7 @@
 import Foundation
 
 struct Tasks {
-//    static let tasks: [String] = ["Выгулять собаку", "Покормить кота", "Сходить в магазин", "Убраться"]
-    
+
     static let userDefaults = UserDefaults.standard
     
     static func saveData(data: [String], key: String) {

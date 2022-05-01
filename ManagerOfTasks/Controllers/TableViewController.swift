@@ -10,13 +10,15 @@ import UIKit
 class TableViewController: UITableViewController {
     
     private var tasks: [String] = []
+    var taskss: [Task] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tasks = Tasks.fetchData(key: "tasks")
         // Uncomment the following line to preserve selection between presentations
-        //         self.clearsSelectionOnViewWillAppear = false
+//                 self.clearsSelectionOnViewWillAppear = false
         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        
     }
     
     // MARK: - Table view data source
@@ -103,15 +105,14 @@ class TableViewController: UITableViewController {
             
         }
     }
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
+    // Убирает красный кружок
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    // Не сдвигает таблицу вправо при редактировании
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    
 }

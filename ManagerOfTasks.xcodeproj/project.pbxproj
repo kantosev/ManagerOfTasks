@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A16273A281EDCC800781D21 /* ManagerOfTasks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A162738281EDCC800781D21 /* ManagerOfTasks.xcdatamodeld */; };
 		3A661ACE2809FA87002658C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A661ACD2809FA87002658C6 /* AppDelegate.swift */; };
 		3A661AD02809FA87002658C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A661ACF2809FA87002658C6 /* SceneDelegate.swift */; };
 		3A661AD52809FA87002658C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A661AD32809FA87002658C6 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A162739281EDCC800781D21 /* ManagerOfTasks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ManagerOfTasks.xcdatamodel; sourceTree = "<group>"; };
 		3A661ACA2809FA87002658C6 /* ManagerOfTasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ManagerOfTasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A661ACD2809FA87002658C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A661ACF2809FA87002658C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				3A73BA72280DD99900D5EF1F /* Data */,
 				3A661ACD2809FA87002658C6 /* AppDelegate.swift */,
 				3A661ACF2809FA87002658C6 /* SceneDelegate.swift */,
+				3A162738281EDCC800781D21 /* ManagerOfTasks.xcdatamodeld */,
 				3A73BA75280DDF2500D5EF1F /* Supporting files */,
 				3A661AD62809FA89002658C6 /* Assets.xcassets */,
 				3A661ADB2809FA89002658C6 /* Info.plist */,
@@ -195,6 +198,7 @@
 				3A73BA7B280DEB0600D5EF1F /* CreateTaskController.swift in Sources */,
 				3A661ACE2809FA87002658C6 /* AppDelegate.swift in Sources */,
 				3A73BA6D280DD75000D5EF1F /* TableViewController.swift in Sources */,
+				3A16273A281EDCC800781D21 /* ManagerOfTasks.xcdatamodeld in Sources */,
 				3A661AD02809FA87002658C6 /* SceneDelegate.swift in Sources */,
 				3A73BA74280DD9A800D5EF1F /* Data.swift in Sources */,
 			);
@@ -352,6 +356,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -381,6 +386,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -416,6 +422,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3A162738281EDCC800781D21 /* ManagerOfTasks.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3A162739281EDCC800781D21 /* ManagerOfTasks.xcdatamodel */,
+			);
+			currentVersion = 3A162739281EDCC800781D21 /* ManagerOfTasks.xcdatamodel */;
+			path = ManagerOfTasks.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3A661AC22809FA87002658C6 /* Project object */;
 }
