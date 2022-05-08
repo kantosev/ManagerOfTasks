@@ -10,7 +10,6 @@ import UIKit
 class TableViewController: UITableViewController {
     
     private var tasks: [String] = []
-    var taskss: [Task] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,9 +81,8 @@ class TableViewController: UITableViewController {
      // Перемещение ячеек
      override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
          let fromTask = tasks[fromIndexPath.row]
-         let toTask = tasks[to.row]
-         tasks[to.row] = fromTask
-         tasks[fromIndexPath.row] = toTask
+         tasks.remove(at: fromIndexPath.row)
+         tasks.insert(fromTask, at: to.row)
          Tasks.saveData(data: tasks, key: "tasks")
      }
      
