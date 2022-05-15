@@ -64,7 +64,6 @@ class TableViewController: UITableViewController {
             } catch {
                 print(error)
             }
-            
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
         
@@ -86,7 +85,6 @@ class TableViewController: UITableViewController {
                     self.tasks.remove(at: index)
                     self.tasks.insert(task, at: index)
                     self.tableView.reloadData()
-                   
                 }
             }
         }
@@ -99,27 +97,38 @@ class TableViewController: UITableViewController {
     
     
 //      Перемещение ячеек
-//     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-//         let fromTask = tasks.remove(at: fromIndexPath.row)
-//         let fromTaskIndex = fromTask.index
-//         let toTask = tasks[to.row]
-//         tasks.insert(fromTask, at: to.row)
-//
-//         fromTask.index = toTask.index
-////         toTask.index = fromTaskIndex
-//         context.refresh(fromTask, mergeChanges: true)
-//
-//         if context.hasChanges {
-//             do {
-//                 try self.context.save()
-//             } catch {
-//                 print(error)
-//             }
-//         }
-//     }
+     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+         // изменили в локальном массиве
+         let fromTask = tasks.remove(at: fromIndexPath.row)
+         tasks.insert(fromTask, at: to.row)
+         
+         // прошлись по всем обьектам(задачам) и изменили их индексы на номер строки и пересохранили
+         for cell in tableView.visibleCells {
+             guard let indexPath = tableView.indexPath(for: cell) else { return }
+             let task = tasks[indexPath.row]
+             task.index = Int16(indexPath.row)
+             context.refresh(task, mergeChanges: true)
+         }
+         
+         if context.hasChanges {
+             do {
+                 try self.context.save()
+             } catch {
+                 print(error)
+             }
+         }
+     }
      
     
     
+    // Убирает красный кружок
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    // Не сдвигает таблицу вправо при редактировании
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -140,19 +149,9 @@ class TableViewController: UITableViewController {
                 }
                 self.tasks.append(task)
                 self.tableView.reloadData()
-//                Tasks.saveData(data: tasks, key: "tasks")
-                
             }
             
         }
-    }
-    // Убирает красный кружок
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .none
-    }
-    // Не сдвигает таблицу вправо при редактировании
-    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-        return false
     }
     
     
