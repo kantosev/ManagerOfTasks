@@ -11,9 +11,8 @@ import CoreData
 
 class TableViewController: UITableViewController {
     
-    private let exampleOfData = Tasks()
     private var tasks: [Task] = []
-    private var context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var context: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()

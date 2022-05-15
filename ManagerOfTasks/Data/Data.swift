@@ -10,7 +10,7 @@ import CoreData
 
 struct Tasks {
     
-    private static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private static let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
     
     static func fetchData() -> [Task] {
         var tasks: [Task] = []
