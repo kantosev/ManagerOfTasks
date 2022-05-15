@@ -5,17 +5,24 @@
 //  Created by Антон Кирилюк on 18.04.2022.
 //
 
-import Foundation
+import UIKit
+import CoreData
 
 struct Tasks {
-
-    static let userDefaults = UserDefaults.standard
     
-    static func saveData(data: [String], key: String) {
-        userDefaults.set(data, forKey: key)
-    }
+    private static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    static func fetchData(key: String) -> [String] {
-        return userDefaults.object(forKey: key) as? [String]  ?? []
+    static func fetchData() -> [Task] {
+        var tasks: [Task] = []
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        do {
+            tasks = try context.fetch(fetchRequest)
+            return tasks
+        } catch {
+            print(error)
+        }
+        return []
     }
 }
