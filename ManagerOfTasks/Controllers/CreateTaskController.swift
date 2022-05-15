@@ -1,90 +1,34 @@
 //
-//  CreateTaskController.swift
+//  CreateViewController.swift
 //  ManagerOfTasks
 //
-//  Created by Антон Кирилюк on 18.04.2022.
+//  Created by Антон Кирилюк on 15.05.2022.
 //
 
 import UIKit
-import CoreData
 
-
-class CreateTaskController: UITableViewController {
-
-    @IBOutlet weak var saveButton: UIBarButtonItem!
-    @IBOutlet weak var textField: UITextField!
+class CreateTaskController: UIViewController {
     
-    var doAfterEdit: ((String) -> Void)?
+    
+    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    var doAfterEdit: ((String, String) -> Void)?
     var textInTextField: String = ""
+    var textInTextView: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTargetToTextField()
         setTextFieldText()
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
+        setTextView()
     }
     
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "createTaskCell", for: indexPath)
-//
-//        // Configure the cell...
-//
-//        return cell
-//    }
-
+    // MARK: - SupportFunc
     
-   
-    
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-// MARK: - SupportFunc
-
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         let nameOfTask = textField.text ?? ""
-        doAfterEdit?(nameOfTask)
+        let taskText = textView.text ?? ""
+        doAfterEdit?(nameOfTask, taskText)
         navigationController?.popViewController(animated: true)
     }
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -104,5 +48,28 @@ class CreateTaskController: UITableViewController {
     }
     private func setTextFieldText() {
         textField.text = textInTextField
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.systemGray4.cgColor
+        textField.layer.cornerRadius = 5
+        textField.clearButtonMode = .whileEditing
     }
+    private func setTextView() {
+        textView.text = textInTextView
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor.systemGray4.cgColor
+        textView.layer.cornerRadius = 5
+        textView.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        textView.keyboardDismissMode = .onDrag
+    }
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

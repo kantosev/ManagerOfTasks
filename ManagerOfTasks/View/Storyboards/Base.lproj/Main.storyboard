@@ -2,7 +2,9 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7I4-Sf-B5M">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,15 +17,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" textLabel="2zp-gr-0fb" style="IBUITableViewCellStyleDefault" id="RC5-5z-Bn5">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="taskCell" textLabel="2zp-gr-0fb" style="IBUITableViewCellStyleDefault" id="RC5-5z-Bn5">
                                 <rect key="frame" x="16" y="49.5" width="343" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RC5-5z-Bn5" id="aL2-ah-gDe">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="318.5" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2zp-gr-0fb">
-                                            <rect key="frame" x="16" y="0.0" width="311" height="43.5"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2zp-gr-0fb">
+                                            <rect key="frame" x="16" y="0.0" width="294.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                             <nil key="textColor"/>
@@ -41,7 +43,7 @@
                     <navigationItem key="navigationItem" title="Tasks" id="gkp-Es-sap">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="9GQ-ux-hCD">
                             <connections>
-                                <segue destination="hjl-52-BE6" kind="show" identifier="toCreateScreen" id="2QB-kn-IJ3"/>
+                                <segue destination="Tvd-1r-Zvk" kind="show" identifier="toCreateScreen" id="YfU-G2-gsv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -50,66 +52,59 @@
             </objects>
             <point key="canvasLocation" x="562" y="72"/>
         </scene>
-        <!--Create Task Controller-->
-        <scene sceneID="i62-gX-1g3">
+        <!--CreateTaskController-->
+        <scene sceneID="cIy-AL-F8K">
             <objects>
-                <tableViewController storyboardIdentifier="CreateTaskController" modalPresentationStyle="fullScreen" id="hjl-52-BE6" customClass="CreateTaskController" customModule="ManagerOfTasks" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="L7L-Bu-Sxf">
+                <viewController storyboardIdentifier="CreateTaskController" title="CreateTaskController" id="Tvd-1r-Zvk" customClass="CreateTaskController" customModule="ManagerOfTasks" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jnb-Oc-rRR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите заголовок" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wH8-5g-0Zk">
+                                <rect key="frame" x="10" y="79" width="355" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="um5-pl-wkK">
+                                <rect key="frame" x="10" y="133" width="355" height="514"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="JJU-GH-M94"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <sections>
-                            <tableViewSection id="Jwc-wZ-9oV">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="createTaskCell" id="8Ya-mk-KPm">
-                                        <rect key="frame" x="16" y="18" width="343" height="34.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Ya-mk-KPm" id="oIb-5b-nJ5">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="34.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите задачу" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="keq-eI-CW3">
-                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="34.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="keq-eI-CW3" secondAttribute="bottom" id="2UQ-bg-5DA"/>
-                                                <constraint firstItem="keq-eI-CW3" firstAttribute="top" secondItem="oIb-5b-nJ5" secondAttribute="top" id="8by-Qd-P4Y"/>
-                                                <constraint firstAttribute="trailing" secondItem="keq-eI-CW3" secondAttribute="trailing" id="8td-Ec-b7S"/>
-                                                <constraint firstItem="keq-eI-CW3" firstAttribute="leading" secondItem="oIb-5b-nJ5" secondAttribute="leading" id="RTY-tW-6tU"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="hjl-52-BE6" id="ddB-IN-C0P"/>
-                            <outlet property="delegate" destination="hjl-52-BE6" id="bue-pZ-Inz"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="si1-bX-ouB">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="AqG-7a-osC">
+                        <constraints>
+                            <constraint firstItem="um5-pl-wkK" firstAttribute="top" secondItem="wH8-5g-0Zk" secondAttribute="bottom" constant="20" id="EPM-jF-KR9"/>
+                            <constraint firstItem="wH8-5g-0Zk" firstAttribute="top" secondItem="JJU-GH-M94" secondAttribute="top" constant="35" id="FpO-sn-pXO"/>
+                            <constraint firstItem="JJU-GH-M94" firstAttribute="trailing" secondItem="wH8-5g-0Zk" secondAttribute="trailing" constant="10" id="LWy-4B-4aJ"/>
+                            <constraint firstItem="um5-pl-wkK" firstAttribute="leading" secondItem="JJU-GH-M94" secondAttribute="leading" constant="10" id="NTt-nv-5ok"/>
+                            <constraint firstItem="JJU-GH-M94" firstAttribute="bottom" secondItem="um5-pl-wkK" secondAttribute="bottom" constant="20" id="aPZ-Sb-f3J"/>
+                            <constraint firstItem="wH8-5g-0Zk" firstAttribute="leading" secondItem="JJU-GH-M94" secondAttribute="leading" constant="10" id="lHB-3a-rlA"/>
+                            <constraint firstItem="JJU-GH-M94" firstAttribute="trailing" secondItem="um5-pl-wkK" secondAttribute="trailing" constant="10" id="ryJ-Ac-XvO"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Создание задачи" id="Swy-pd-HHY">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="kjV-Ae-OQW">
                             <connections>
-                                <action selector="cancelButtonPressed:" destination="hjl-52-BE6" id="f9H-W5-fpN"/>
+                                <action selector="cancelButtonPressed:" destination="Tvd-1r-Zvk" id="zBA-Vy-Vzv"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="Xhf-gz-7wb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="MWQ-zo-GLJ">
                             <connections>
-                                <action selector="saveButtonPressed:" destination="hjl-52-BE6" id="2uD-jn-kmG"/>
+                                <action selector="saveButtonPressed:" destination="Tvd-1r-Zvk" id="uTe-wG-DYj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="saveButton" destination="Xhf-gz-7wb" id="THn-H1-uh9"/>
-                        <outlet property="textField" destination="keq-eI-CW3" id="Sqr-kn-KYb"/>
+                        <outlet property="saveButton" destination="MWQ-zo-GLJ" id="MLa-4y-Rda"/>
+                        <outlet property="textField" destination="wH8-5g-0Zk" id="KfM-av-l1g"/>
+                        <outlet property="textView" destination="um5-pl-wkK" id="m2p-Zk-GfG"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ak4-FJ-8zN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XnV-Nd-Wyt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1330" y="71"/>
+            <point key="canvasLocation" x="1354" y="71"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bIF-Pd-XYn">
@@ -129,6 +124,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -17,7 +17,7 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tasks = Tasks.fetchData()
-        
+
         // Uncomment the following line to preserve selection between presentations
 //                 self.clearsSelectionOnViewWillAppear = false
         self.navigationItem.leftBarButtonItem = self.editButtonItem
@@ -37,11 +37,11 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath)
-        
         var content = cell.defaultContentConfiguration()
         
         // Configure content.
         content.text = tasks[indexPath.row].title
+        
         cell.contentConfiguration = content
         
         return cell
@@ -49,7 +49,30 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let task = tasks[indexPath.row]
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "CreateTaskController") as? CreateTaskController else { return }
+        vc.title = ""
+        self.navigationController?.pushViewController(vc, animated: true)
         
+        vc.textInTextField = self.tasks[indexPath.row].title ?? ""
+        vc.textInTextView = self.tasks[indexPath.row].taskText ?? ""
+        vc.doAfterEdit = { [unowned self] nameOfTask, taskText in
+            if nameOfTask != vc.textInTextField || taskText != vc.textInTextView {
+                guard let index = self.tasks.firstIndex(of: self.tasks[indexPath.row]) else { return }
+                task.title = nameOfTask
+                task.taskText = taskText
+                self.context.refresh(task, mergeChanges: true)
+                do {
+                    try context.save()
+                } catch {
+                    print(error)
+                }
+                self.tasks.remove(at: index)
+                self.tasks.insert(task, at: index)
+                self.tableView.reloadData()
+            }
+        }
         
     }
     // удаление и изменение задачи
@@ -66,36 +89,11 @@ class TableViewController: UITableViewController {
             }
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        
-        let changeAction = UIContextualAction(style: .normal, title: "Изменить") { _,_,_ in
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let vc = storyboard.instantiateViewController(withIdentifier: "CreateTaskController") as? CreateTaskController else { return }
-            self.navigationController?.pushViewController(vc, animated: true)
-            vc.textInTextField = self.tasks[indexPath.row].title ?? ""
-            vc.doAfterEdit = { [unowned self] nameOfTask in
-                if nameOfTask != vc.textInTextField {
-                    guard let index = self.tasks.firstIndex(of: self.tasks[indexPath.row]) else { return }
-                    task.title = nameOfTask
-                    self.context.refresh(task, mergeChanges: true)
-                    do {
-                        try context.save()
-                    } catch {
-                        print(error)
-                    }
-                    self.tasks.remove(at: index)
-                    self.tasks.insert(task, at: index)
-                    self.tableView.reloadData()
-                }
-            }
-        }
-        let actions = UISwipeActionsConfiguration(actions: [deleteAction, changeAction])
+       
+        let actions = UISwipeActionsConfiguration(actions: [deleteAction])
         return actions
     }
-    
-    
-    
-    
-    
+
 //      Перемещение ячеек
      override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
          // изменили в локальном массиве
@@ -118,9 +116,7 @@ class TableViewController: UITableViewController {
              }
          }
      }
-     
-    
-    
+
     // Убирает красный кружок
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
@@ -135,10 +131,11 @@ class TableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toCreateScreen" {
             guard let destination = segue.destination as? CreateTaskController else { return }
-            destination.doAfterEdit = { [unowned self] nameOfTask in
+            destination.doAfterEdit = { [unowned self] nameOfTask, taskText in
                 guard let entityDescription = NSEntityDescription.entity(forEntityName: "Task", in: context) else { return }
                 guard let task = NSManagedObject(entity: entityDescription, insertInto: context) as? Task else { return }
                 task.title = nameOfTask
+                task.taskText = taskText
                 task.index = Int16(tasks.count)
                 if context.hasChanges {
                     do {
@@ -153,7 +150,4 @@ class TableViewController: UITableViewController {
             
         }
     }
-    
-    
-    
 }
